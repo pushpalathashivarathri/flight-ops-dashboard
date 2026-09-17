@@ -1,0 +1,48 @@
+<div class="details-panel">
+  <h2 class="details-panel__title">Flight Details</h2>
+
+  <ng-container *ngIf="flight; else emptyState">
+    <div class="details-panel__status" [attr.data-status]="flight.status">
+      {{ flight.status }}
+    </div>
+
+    <dl class="details-list">
+      <div class="details-list__row">
+        <dt>Flight Number</dt>
+        <dd>{{ flight.flightNumber }}</dd>
+      </div>
+      <div class="details-list__row">
+        <dt>Callsign</dt>
+        <dd>{{ flight.callsign }}</dd>
+      </div>
+      <div class="details-list__row">
+        <dt>Aircraft Type</dt>
+        <dd>{{ flight.aircraftType }}</dd>
+      </div>
+      <div class="details-list__row">
+        <dt>Origin</dt>
+        <dd>{{ flight.origin }} ({{ flight.originCode }})</dd>
+      </div>
+      <div class="details-list__row">
+        <dt>Destination</dt>
+        <dd>{{ flight.destination }} ({{ flight.destinationCode }})</dd>
+      </div>
+      <div class="details-list__row">
+        <dt>Estimated Departure</dt>
+        <dd>{{ flight.estimatedDeparture | date: 'medium' }}</dd>
+      </div>
+      <div class="details-list__row">
+        <dt>Estimated Arrival</dt>
+        <dd>{{ flight.estimatedArrival | date: 'medium' }}</dd>
+      </div>
+    </dl>
+  </ng-container>
+
+  <ng-template #emptyState>
+    <app-empty-state
+      icon="flight"
+      title="No flight selected"
+      message="Click a flight marker on the map to view its details here."
+    ></app-empty-state>
+  </ng-template>
+</div>

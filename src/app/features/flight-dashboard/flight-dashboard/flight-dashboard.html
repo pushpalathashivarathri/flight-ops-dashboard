@@ -1,0 +1,30 @@
+<app-dashboard-header></app-dashboard-header>
+
+<main class="dashboard-body">
+  <section class="dashboard-body__kpis">
+    <app-kpi-cards [kpis]="kpis$ | async"></app-kpi-cards>
+  </section>
+
+  <section class="dashboard-body__filters">
+    <app-flight-filters></app-flight-filters>
+  </section>
+
+  <section class="dashboard-body__main">
+    <div class="dashboard-body__map">
+      <ng-container *ngIf="(filteredFlights$ | async)?.length; else noFlights">
+        <app-flight-map></app-flight-map>
+      </ng-container>
+      <ng-template #noFlights>
+        <app-empty-state
+          icon="search_off"
+          title="No flights match your filters"
+          message="Try adjusting or clearing your search criteria."
+        ></app-empty-state>
+      </ng-template>
+    </div>
+
+    <aside class="dashboard-body__details">
+      <app-flight-details [flight]="selectedFlight$ | async"></app-flight-details>
+    </aside>
+  </section>
+</main>

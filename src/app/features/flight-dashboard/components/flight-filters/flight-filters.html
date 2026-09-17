@@ -1,0 +1,40 @@
+<form class="filters-bar" [formGroup]="filterForm" role="search" aria-label="Flight search and filters">
+  <div class="filter-field filter-field--search">
+    <label for="callsign-input">Search Callsign</label>
+    <input
+      id="callsign-input"
+      type="text"
+      formControlName="callsign"
+      placeholder="e.g. AIC202"
+      autocomplete="off"
+    />
+  </div>
+
+  <div class="filter-field">
+    <label for="status-select">Status</label>
+    <select id="status-select" formControlName="status">
+      <option value="All">All Statuses</option>
+      <option *ngFor="let status of statusOptions$ | async" [value]="status">{{ status }}</option>
+    </select>
+  </div>
+
+  <div class="filter-field">
+    <label for="origin-select">Origin</label>
+    <select id="origin-select" formControlName="origin">
+      <option value="All">All Origins</option>
+      <option *ngFor="let origin of originOptions$ | async" [value]="origin">{{ origin }}</option>
+    </select>
+  </div>
+
+  <div class="filter-field">
+    <label for="destination-select">Destination</label>
+    <select id="destination-select" formControlName="destination">
+      <option value="All">All Destinations</option>
+      <option *ngFor="let destination of destinationOptions$ | async" [value]="destination">{{ destination }}</option>
+    </select>
+  </div>
+
+  <button type="button" class="clear-btn" (click)="onClearFilters()" aria-label="Clear all filters">
+    Clear Filters
+  </button>
+</form>

@@ -1,0 +1,46 @@
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  padding: 16px 24px;
+  background: #0f172a;
+  color: #fff;
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  &__icon {
+    font-size: 28px;
+    transform: rotate(45deg);
+    display: inline-block;
+  }
+
+  &__title {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 0.01em;
+  }
+
+  &__subtitle {
+    font-size: 12px;
+    margin: 2px 0 0;
+    color: #94a3b8;
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard-header {
+    padding: 12px 16px;
+  }
+
+  .dashboard-header__title {
+    font-size: 15px;
+  }
+
+  .dashboard-header__subtitle {
+    display: none;
+  }
+}

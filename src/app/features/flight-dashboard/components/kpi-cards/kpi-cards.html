@@ -1,0 +1,18 @@
+<div class="kpi-grid" *ngIf="kpis as k">
+  <div class="kpi-card kpi-card--total">
+    <span class="kpi-card__label">Total Flights</span>
+    <span class="kpi-card__value">{{ k.total }}</span>
+  </div>
+  <div class="kpi-card kpi-card--active">
+    <span class="kpi-card__label">Active</span>
+    <span class="kpi-card__value">{{ k.active }}</span>
+  </div>
+  <div class="kpi-card kpi-card--delayed">
+    <span class="kpi-card__label">Delayed</span>
+    <span class="kpi-card__value">{{ k.delayed }}</span>
+  </div>
+  <div class="kpi-card kpi-card--arrived">
+    <span class="kpi-card__label">Arrived</span>
+    <span class="kpi-card__value">{{ k.arrived }}</span>
+  </div>
+</div>
