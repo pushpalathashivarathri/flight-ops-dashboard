@@ -13,31 +13,63 @@
 }
 
 .kpi-card {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 10px;
-  padding: 16px 20px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   border-left: 4px solid transparent;
 
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: rgba(15, 23, 42, 0.08);
+    flex-shrink: 0;
+  }
+
   &__label {
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: #64748b;
+    color: var(--color-text-secondary);
+    line-height: 1.2;
   }
 
   &__value {
     font-size: 28px;
     font-weight: 700;
-    color: #0f172a;
+    color: var(--color-text-secondary);
+    line-height: 1.1;
   }
 
-  &--total { border-left-color: #1565c0; }
-  &--active { border-left-color: #2e7d32; }
-  &--delayed { border-left-color: #e65100; }
-  &--arrived { border-left-color: #546e7a; }
+  &--total {
+    border-left-color: #1565c0;
+    .kpi-card__icon { background: #e3f2fd; color: #1565c0; }
+  }
+  &--active {
+    border-left-color: #2e7d32;
+    .kpi-card__icon { background: #e8f5e9; color: #2e7d32; }
+  }
+  &--delayed {
+    border-left-color: #e65100;
+    .kpi-card__icon { background: #fff3e0; color: #e65100; }
+  }
+  &--arrived {
+    border-left-color: #546e7a;
+    .kpi-card__icon { background: #eceff1; color: #546e7a; }
+  }
 }

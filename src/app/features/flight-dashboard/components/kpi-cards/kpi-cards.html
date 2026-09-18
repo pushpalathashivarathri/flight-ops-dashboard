@@ -1,18 +1,38 @@
 <div class="kpi-grid" *ngIf="kpis as k">
   <div class="kpi-card kpi-card--total">
-    <span class="kpi-card__label">Total Flights</span>
+    <div class="kpi-card__header">
+      <span class="kpi-card__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 16" width="16" height="16"><path d="M2 16.5l20-9-20-9v6l14 3-14 3v6z" fill="currentColor"/></svg>
+      </span>
+      <span class="kpi-card__label">Total Flights</span>
+    </div>
     <span class="kpi-card__value">{{ k.total }}</span>
   </div>
   <div class="kpi-card kpi-card--active">
-    <span class="kpi-card__label">Active</span>
+    <div class="kpi-card__header">
+      <span class="kpi-card__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1 5h2v6h-2zm0 8h2v2h-2z" fill="currentColor"/></svg>
+      </span>
+      <span class="kpi-card__label">Active</span>
+    </div>
     <span class="kpi-card__value">{{ k.active }}</span>
   </div>
   <div class="kpi-card kpi-card--delayed">
-    <span class="kpi-card__label">Delayed</span>
+    <div class="kpi-card__header">
+      <span class="kpi-card__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 2a10 10 0 1010 10A10 10 0 0012 2zm1 5h-2v7h5v-2h-3z" fill="currentColor"/></svg>
+      </span>
+      <span class="kpi-card__label">Delayed</span>
+    </div>
     <span class="kpi-card__value">{{ k.delayed }}</span>
   </div>
   <div class="kpi-card kpi-card--arrived">
-    <span class="kpi-card__label">Arrived</span>
+    <div class="kpi-card__header">
+      <span class="kpi-card__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12-1.4-1.4z" fill="currentColor"/></svg>
+      </span>
+      <span class="kpi-card__label">Arrived</span>
+    </div>
     <span class="kpi-card__value">{{ k.arrived }}</span>
   </div>
 </div>

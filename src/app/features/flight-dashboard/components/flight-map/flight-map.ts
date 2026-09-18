@@ -15,10 +15,11 @@ import { FlightService } from '../../../../core/services/flight';
 import { Flight } from '../../../../core/models/flight.model';
 import {
   createFlightIcon,
-  createEndpointIcon,
   buildPopupContent,
+  buildFlightLabel,
   createRoutePolyline,
-  getRouteBounds
+  getRouteBounds,
+  spreadOverlappingCoordinates
 } from './leaflet-map.helper';
 
 @Component({
@@ -38,8 +39,6 @@ export class FlightMap implements AfterViewInit, OnDestroy {
   private markerLayer!: L.LayerGroup;
   private routeLayer!: L.LayerGroup;
   private markersByFlightId = new Map<string, L.Marker>();
-  private currentFlights: Flight[] = [];
-  private selectedFlightId: string | null = null;
 
   ngAfterViewInit(): void {
     this.initializeMap();
@@ -64,7 +63,7 @@ export class FlightMap implements AfterViewInit, OnDestroy {
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      maxZoom: 18
+      maxZoom: 19
     }).addTo(this.map);
 
     this.markerLayer = L.layerGroup().addTo(this.map);
@@ -78,29 +77,37 @@ export class FlightMap implements AfterViewInit, OnDestroy {
     ])
       .pipe(takeUntil(this.destroy$))
       .subscribe(([flights, selectedId]) => {
-        this.currentFlights = flights;
-        this.selectedFlightId = selectedId;
         this.renderMarkers(flights, selectedId);
         this.renderSelectedRoute(flights, selectedId);
       });
   }
 
-  private renderMarkers(flights: Flight[], selectedId: string | null): void {
-    this.markerLayer.clearLayers();
-    this.markersByFlightId.clear();
+ private renderMarkers(flights: Flight[], selectedId: string | null): void {
+  this.markerLayer.clearLayers();
+  this.markersByFlightId.clear();
 
-    flights.forEach((flight) => {
-      const isSelected = flight.id === selectedId;
-      const icon = createFlightIcon(flight, isSelected);
+  const positions = spreadOverlappingCoordinates(flights);
 
-      const marker = L.marker([flight.currentLat, flight.currentLng], { icon })
-        .bindPopup(buildPopupContent(flight))
-        .on('click', () => this.flightService.selectFlight(flight.id));
+  flights.forEach((flight) => {
+    const isSelected = flight.id === selectedId;
+    const icon = createFlightIcon(flight, isSelected);
+    const [lat, lng] = positions.get(flight.id) ?? [flight.currentLat, flight.currentLng];
 
-      marker.addTo(this.markerLayer);
-      this.markersByFlightId.set(flight.id, marker);
-    });
-  }
+    const marker = L.marker([lat, lng], { icon })
+      .bindPopup(buildPopupContent(flight))
+      .bindTooltip(buildFlightLabel(flight), {
+        permanent: isSelected,
+        direction: 'top',
+        offset: [0, -14],
+        className: 'flight-label-tooltip',
+        opacity: 1
+      })
+      .on('click', () => this.flightService.selectFlight(flight.id));
+
+    marker.addTo(this.markerLayer);
+    this.markersByFlightId.set(flight.id, marker);
+  });
+}
 
   private renderSelectedRoute(flights: Flight[], selectedId: string | null): void {
     this.routeLayer.clearLayers();
@@ -116,17 +123,6 @@ export class FlightMap implements AfterViewInit, OnDestroy {
 
     const routeLine = createRoutePolyline(flight);
     routeLine.addTo(this.routeLayer);
-
-    const originMarker = L.marker([flight.originLat, flight.originLng], {
-      icon: createEndpointIcon('origin')
-    }).bindTooltip(`Origin: ${flight.originCode}`, { permanent: false });
-
-    const destinationMarker = L.marker([flight.destinationLat, flight.destinationLng], {
-      icon: createEndpointIcon('destination')
-    }).bindTooltip(`Destination: ${flight.destinationCode}`, { permanent: false });
-
-    originMarker.addTo(this.routeLayer);
-    destinationMarker.addTo(this.routeLayer);
 
     const bounds = getRouteBounds(flight);
     this.map.fitBounds(bounds, { padding: [60, 60], maxZoom: 6 });

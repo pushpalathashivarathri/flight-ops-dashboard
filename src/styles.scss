@@ -1,9 +1,38 @@
-// Include theming for Angular Material with `mat.theme()`.
-// This Sass mixin will define CSS variables that are used for styling Angular Material
-// components according to the Material 3 design spec.
-// Learn more about theming and how to use it for your application's
-// custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
+
+:root {
+  --color-bg-page: #f4f6f9;
+  --color-bg-surface: #ffffff;
+  --color-bg-header: #0f172a;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #64748b;
+  --color-text-muted: #94a3b8;
+  --color-border: #e2e8f0;
+  --color-border-subtle: #f1f5f9;
+  --color-input-bg: #ffffff;
+  --color-input-border: #cbd5e1;
+  --color-shadow: rgba(0, 0, 0, 0.08);
+}
+
+:root[data-theme='dark'] {
+  --color-bg-page: #0b1220;
+  --color-bg-surface: #131c2e;
+  --color-bg-header: #060b16;
+  --color-text-primary: #e2e8f0;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+  --color-border: #24304a;
+  --color-border-subtle: #1c2740;
+  --color-input-bg: #0f1729;
+  --color-input-border: #2c3a58;
+  --color-shadow: rgba(0, 0, 0, 0.4);
+}
+
+body {
+  background: var(--color-bg-page);
+  color: var(--color-text-primary);
+  transition: background 0.2s ease, color 0.2s ease;
+}
 
 html {
   height: 100%;
