@@ -1,13 +1,8 @@
 <div class="details-panel">
   <div class="details-panel__header">
     <h2 class="details-panel__title">Flight Details</h2>
-    <button
-      *ngIf="flight"
-      type="button"
-      class="details-panel__close"
-      (click)="onClose()"
-      aria-label="Close flight details"
-    >✕</button>
+    <button *ngIf="flight" type="button" class="details-panel__close" (click)="onClose()"
+      aria-label="Close flight details">✕</button>
   </div>
 
   <ng-container *ngIf="flight as f; else emptyState">
@@ -24,71 +19,71 @@
           <span>{{ f.destinationCode }}</span>
         </div>
 
-       <img
-  class="details-panel__plane"
-  src="assets/images/airplane.png"
-  alt="Aircraft illustration"
-  width="120"
-  height="50"
-/>
+        <img class="details-panel__plane" src="assets/images/airplane.png" alt="Aircraft illustration" width="120"
+          height="50" />
       </div>
 
       <p class="details-panel__meta">{{ airlineName }} &nbsp;•&nbsp; {{ f.aircraftType }}</p>
-
+      <p class="details-panel__callsign">Callsign: <strong>{{ f.callsign }}</strong></p>
       <dl class="details-list">
         <div class="details-list__row">
           <dt>Scheduled Departure</dt>
-          <dd>{{ t.scheduledDeparture | date: 'HH:mm' : 'UTC' }} <span class="details-list__code">({{ f.originCode }})</span></dd>
+          <dd>{{ t.scheduledDeparture | date: 'HH:mm' : 'UTC' }} <span class="details-list__code">({{ f.originCode
+              }})</span></dd>
         </div>
         <div class="details-list__row">
           <dt>Estimated Departure</dt>
-          <dd>{{ f.estimatedDeparture | date: 'HH:mm' : 'UTC' }} <span class="details-list__code">({{ f.originCode }})</span></dd>
+          <dd>{{ f.estimatedDeparture | date: 'HH:mm' : 'UTC' }} <span class="details-list__code">({{ f.originCode
+              }})</span></dd>
         </div>
         <div class="details-list__row">
           <dt>Scheduled Arrival</dt>
-          <dd>{{ t.scheduledArrival | date: 'HH:mm' : 'UTC' }} <span class="details-list__code">({{ f.destinationCode }})</span></dd>
+          <dd>{{ t.scheduledArrival | date: 'HH:mm' : 'UTC' }} <span class="details-list__code">({{ f.destinationCode
+              }})</span></dd>
         </div>
         <div class="details-list__row">
           <dt>Estimated Arrival</dt>
-          <dd>{{ f.estimatedArrival | date: 'HH:mm' : 'UTC' }} <span class="details-list__code">({{ f.destinationCode }})</span></dd>
+          <dd>{{ f.estimatedArrival | date: 'HH:mm' : 'UTC' }} <span class="details-list__code">({{ f.destinationCode
+              }})</span></dd>
         </div>
       </dl>
 
       <div class="telemetry-row">
         <div class="telemetry-item">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M5 9l7-7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2v20M5 9l7-7 7 7" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
           <div>
             <span class="telemetry-item__label">Altitude</span>
             <span class="telemetry-item__value">{{ t.altitudeFt ? (t.altitudeFt | number) + ' ft' : '—' }}</span>
           </div>
         </div>
         <div class="telemetry-item">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 12l4-4" stroke-linecap="round"/></svg>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 12l4-4" stroke-linecap="round" />
+          </svg>
           <div>
             <span class="telemetry-item__label">Ground Speed</span>
             <span class="telemetry-item__value">{{ t.groundSpeedKts ? t.groundSpeedKts + ' kts' : '—' }}</span>
           </div>
         </div>
         <div class="telemetry-item">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 7v5l3 2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
           <div>
             <span class="telemetry-item__label">Track</span>
             <span class="telemetry-item__value">{{ t.trackDegrees }}°</span>
           </div>
         </div>
       </div>
-
-      <!-- <button type="button" class="view-details-btn" (click)="onCenterOnMap()">
-        View Flight Details <span aria-hidden="true">→</span>
-      </button> -->
     </ng-container>
   </ng-container>
 
   <ng-template #emptyState>
-    <app-empty-state
-      icon="flight"
-      title="No flight selected"
-      message="Click a flight marker on the map to view its details here."
-    ></app-empty-state>
+    <app-empty-state icon="flight" title="No flight selected"
+      message="Click a flight marker on the map to view its details here."></app-empty-state>
   </ng-template>
 </div>

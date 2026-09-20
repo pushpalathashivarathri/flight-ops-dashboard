@@ -1,6 +1,5 @@
 import { Component, Input, inject } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-
 import { Flight } from '../../../../core/models/flight.model';
 import { FlightService } from '../../../../core/services/flight';
 import { STATUS_DISPLAY_LABEL } from '../../../../core/constants/flight-status.constant';

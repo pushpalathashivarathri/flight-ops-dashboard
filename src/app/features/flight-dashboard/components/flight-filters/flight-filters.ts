@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-
 import { FlightService } from '../../../../core/services/flight';
 import { FlightStatus } from '../../../../core/models/flight.model';
 import { DEFAULT_FLIGHT_FILTER } from '../../../../core/models/flight-filter.model';

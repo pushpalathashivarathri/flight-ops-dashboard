@@ -54,14 +54,18 @@ export class FlightService {
     map((flights) => Array.from(new Set(flights.map((f) => f.status))).sort())
   );
 
-  /** Distinct origin airport names present in the data. */
+  /** Distinct origin airports present in the data, as "City (CODE)" labels. */
   readonly originOptions$: Observable<string[]> = this.flights$.pipe(
-    map((flights) => Array.from(new Set(flights.map((f) => f.origin))).sort())
+    map((flights) =>
+      Array.from(new Set(flights.map((f) => `${f.origin} (${f.originCode})`))).sort()
+    )
   );
 
-  /** Distinct destination airport names present in the data. */
+  /** Distinct destination airports present in the data, as "City (CODE)" labels. */
   readonly destinationOptions$: Observable<string[]> = this.flights$.pipe(
-    map((flights) => Array.from(new Set(flights.map((f) => f.destination))).sort())
+    map((flights) =>
+      Array.from(new Set(flights.map((f) => `${f.destination} (${f.destinationCode})`))).sort()
+    )
   );
 
   /** Updates the active filter/search criteria. Called by FlightFiltersComponent. */
@@ -85,20 +89,27 @@ export class FlightService {
   }
 
   private applyFilter(flights: Flight[], filter: FlightFilter): Flight[] {
-    const callsignQuery = filter.callsign.trim().toLowerCase();
+  const searchQuery = filter.callsign.trim().toLowerCase();
 
-    return flights.filter((flight) => {
-      const matchesCallsign = callsignQuery
-        ? flight.callsign.toLowerCase().includes(callsignQuery)
-        : true;
-      const matchesStatus = filter.status === 'All' ? true : flight.status === filter.status;
-      const matchesOrigin = filter.origin === 'All' ? true : flight.origin === filter.origin;
-      const matchesDestination =
-        filter.destination === 'All' ? true : flight.destination === filter.destination;
+  return flights.filter((flight) => {
+    const matchesSearch = searchQuery
+      ? flight.callsign.toLowerCase().includes(searchQuery) ||
+        flight.originCode.toLowerCase().includes(searchQuery) ||
+        flight.destinationCode.toLowerCase().includes(searchQuery) ||
+        flight.origin.toLowerCase().includes(searchQuery) ||
+        flight.destination.toLowerCase().includes(searchQuery)
+      : true;
+    const matchesStatus = filter.status === 'All' ? true : flight.status === filter.status;
+    const matchesOrigin =
+      filter.origin === 'All' ? true : `${flight.origin} (${flight.originCode})` === filter.origin;
+    const matchesDestination =
+      filter.destination === 'All'
+        ? true
+        : `${flight.destination} (${flight.destinationCode})` === filter.destination;
 
-      return matchesCallsign && matchesStatus && matchesOrigin && matchesDestination;
-    });
-  }
+    return matchesSearch && matchesStatus && matchesOrigin && matchesDestination;
+  });
+}
 
   private computeKpis(flights: Flight[]): FlightKpis {
     return {

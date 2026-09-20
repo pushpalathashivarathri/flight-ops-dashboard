@@ -1,13 +1,8 @@
 <form class="filters-bar" [formGroup]="filterForm" role="search" aria-label="Flight search and filters">
   <div class="filter-field filter-field--search">
-    <label for="callsign-input">Search Callsign</label>
-    <input
-      id="callsign-input"
-      type="text"
-      formControlName="callsign"
-      placeholder="e.g. AIC202"
-      autocomplete="off"
-    />
+    <label for="callsign-input">Search Flights</label>
+    <input id="callsign-input" type="text" formControlName="callsign"
+      placeholder="Callsign, origin, or destination (e.g. AIC202, DEL, Hyderabad)" autocomplete="off" />
   </div>
 
   <div class="filter-field">

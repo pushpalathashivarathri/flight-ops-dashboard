@@ -48,14 +48,26 @@
     height: 9px;
     border-radius: 50%;
 
-    &--active { background: #25ab2c; }
-    &--delayed { background: #cd4d08; }
-    &--arrived { background: #c4dfec; }
-    &--scheduled { background: #0c6ddc; }
+    &--active {
+      background: #25ab2c;
+    }
+
+    &--delayed {
+      background: #cd4d08;
+    }
+
+    &--arrived {
+      background: #c4dfec;
+    }
+
+    &--scheduled {
+      background: #0c6ddc;
+    }
   }
 }
 
 ::ng-deep {
+
   .flight-marker-icon,
   .endpoint-marker-icon {
     background: transparent;

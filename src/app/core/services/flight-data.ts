@@ -12,11 +12,9 @@ export class FlightDataService {
 
   constructor(private readonly http: HttpClient) {}
 
-  /**
-   * Fetches the flight dataset.
-   * In a real system this would call a backend REST/WebSocket API —
-   * swapping the implementation here is all that's required later.
-   */
+  /** Fetches the flight dataset.
+    In a real system this would call a backend REST/WebSocket API —
+    swapping the implementation here.n*/
   getFlights(): Observable<Flight[]> {
     return this.http.get<Flight[]>(this.dataUrl);
   }

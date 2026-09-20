@@ -2,7 +2,7 @@ import * as L from 'leaflet';
 import { Flight } from '../../../../core/models/flight.model';
 import { STATUS_COLOR_MAP } from '../../../../core/constants/flight-status.constant';
 
-/** Calculates the compass bearing (degrees) from one point to another, for rotating plane icons. */
+/** Calculating the compass bearing (degrees) from one point to another, for rotating plane icons. */
 export function calculateBearing(lat1: number, lng1: number, lat2: number, lng2: number): number {
   const toRad = (deg: number) => (deg * Math.PI) / 180;
   const toDeg = (rad: number) => (rad * 180) / Math.PI;
@@ -17,8 +17,8 @@ export function calculateBearing(lat1: number, lng1: number, lat2: number, lng2:
 }
 
 /**
- * Creates a plane-shaped divIcon, colored by status and rotated to face
- * its direction of travel (origin -> destination).
+ Creates a plane-shaped divIcon, colored by status and rotated to face
+ its direction of travel (origin -> destination).
  */
 export function createFlightIcon(flight: Flight, isSelected: boolean): L.DivIcon {
   const color = STATUS_COLOR_MAP[flight.status];
@@ -116,9 +116,9 @@ export function getRouteBounds(flight: Flight): L.LatLngBounds {
   ]);
 }
 /**
- * Groups flights by identical (rounded) coordinates and returns a Map from
- * flight id -> adjusted [lat, lng], nudging overlapping markers into a small
- * circle around their shared point so they're all individually visible/clickable.
+  Groups flights by identical (rounded) coordinates and returns a Map from
+  flight id -> adjusted [lat, lng], nudging overlapping markers into a small
+  circle around their shared point so they're all individually visible/clickable.
  */
 export function spreadOverlappingCoordinates(flights: Flight[]): Map<string, [number, number]> {
   const groups = new Map<string, Flight[]>();
